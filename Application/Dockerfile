@@ -1,11 +1,16 @@
 FROM node:8
-ENV PORT 8080
-EXPOSE 8080
+LABEL maintainer="Azure App Service Container Images <appsvc-images@microsoft.com>"
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+# Create app directory
+WORKDIR /app
+
+# Install app dependencies
 COPY package.json .
+
 RUN npm install
+
+# Bundle app source
 COPY . .
 
-CMD ["npm", "start"]
+EXPOSE 8080 8080
+CMD [ "npm", "start" ]
